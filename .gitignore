@@ -1,2 +1,3 @@
 # Don't include synced folders that will be held in other repos
-*/sites/*
+sites
+.vagrant
