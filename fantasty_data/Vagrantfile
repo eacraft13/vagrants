@@ -1,0 +1,54 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+    # App
+    config.vm.define "app" do |app|
+        config.vm.box = "ubuntu/trusty64"
+
+        config.vm.hostname = "app"
+        config.ssh.forward_agent = true
+
+        config.vm.network :private_network, ip: "10.10.10.10"
+
+        config.vm.synced_folder "./sites/app", "/sites/app",   create: true
+        config.vm.synced_folder "./configs",   "/etc/configs", create: true
+
+        config.vm.provider :virtualbox do |v|
+            v.memory = 2048
+            v.cpus = 2
+        end
+
+        config.vm.provision :shell do |s|
+            s.path = "./provision/bootstrap.sh"
+            s.path = "./provision/app.sh"
+        end
+    end
+
+
+
+    # Proxy
+    config.vm.define "proxy" do |proxy|
+        config.vm.box = "ubuntu/trusty64"
+
+        config.vm.hostname = "proxy"
+        config.ssh.forward_agent = true
+
+        config.vm.network :private_network, ip: "10.10.10.11"
+
+        config.vm.synced_folder "./sites/proxy", "/sites/proxy", create: true
+        config.vm.synced_folder "./configs",     "/etc/configs", create: true
+
+        config.vm.provider :virtualbox do |v|
+            v.memory = 2048
+            v.cpus = 2
+        end
+
+        config.vm.provision :shell do |s|
+            s.path = "./provision/bootstrap.sh"
+            s.path = "./provision/proxy.sh"
+        end
+    end
+
+end
