@@ -7,3 +7,11 @@ cd /sites/app
   npm install
   bower install --allow-root
 cd ../..
+
+
+echo "Preparing nginx..."
+
+cp /etc/configs/nginx/app /etc/nginx/sites-available/app
+rm /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/app /etc/nginx/sites-enabled/app
+service nginx restart
