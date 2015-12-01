@@ -1,6 +1,5 @@
 {
     "host": "10.10.10.11",
-    "port": 8000,
     "ocp": {
         "host": "https://api.fantasydata.net/",
         "headers": {
