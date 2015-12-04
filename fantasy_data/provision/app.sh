@@ -16,3 +16,7 @@ cp /etc/configs/nginx/app /etc/nginx/sites-available/app
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/app /etc/nginx/sites-enabled/app
 service nginx restart
+
+echo "Preparing nginx error pages..."
+
+cp -r /etc/configs/nginx/errors /usr/share/nginx/html
