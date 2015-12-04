@@ -5,7 +5,7 @@ echo "Preparing proxy..."
 cd /sites/proxy
   git clone git@github.com:eacraft13/fantasy_data-proxy.git .
   npm install
-  pm2 start index.js
+  pm2 start index.js --name="proxy"
 cd ../..
 
 echo "Preparing nginx..."
