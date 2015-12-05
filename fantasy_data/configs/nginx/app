@@ -1,13 +1,35 @@
+# *
 server {
-    listen      80;
-    #server_name "~^(?!www\.).*";
-    server_name fantasydata.co;
-    return      301 $scheme://www.$host$request_uri;
+    listen                  80;
+    listen                  443 ssl;
+    server_name             ~^(?!www\.)(?<domain>.+)$;
+    ssl_certificate         /etc/nginx/ssl/nginx.crt;
+    ssl_certificate_key     /etc/nginx/ssl/nginx.key;
+
+    # google site verification (fantasydata.co)
+    location = /google7b33eeee9f60045f.html {
+        rewrite ^/(.*) $1;
+        return 200 "google-site-verification: $uri";
+    }
+
+    # google site verification (fantasyback.com)
+    location = /google7b33eeee9f60045f.html {
+        rewrite ^/(.*) $1;
+        return 200 "google-site-verification: $uri";
+    }
+
+    return                  301 $scheme://www.$domain$request_uri;
 }
 
+
+
+# www.*
 server {
-    listen       80;
-    server_name  www.fantasydata.co;
+    listen                  80;
+    listen                  443 ssl;
+    server_name             www.*
+    ssl_certificate         /etc/nginx/ssl/nginx.crt;
+    ssl_certificate_key     /etc/nginx/ssl/nginx.key;
 
     location / {
         proxy_pass http://127.0.0.1:8080;
@@ -32,13 +54,10 @@ server {
         rewrite ^/(.*) $1;
         return 200 "google-site-verification: $uri";
     }
-}
-
-server {
-    listen       80;
-    server_name  local.app.fantasydata.co;
-
-    location / {
-        proxy_pass http://127.0.0.1:8080;
+    
+    # google site verification (fantasyback.com)
+    location = /google7b33eeee9f60045f.html {
+        rewrite ^/(.*) $1;
+        return 200 "google-site-verification: $uri";
     }
 }
