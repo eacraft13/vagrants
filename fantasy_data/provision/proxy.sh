@@ -8,6 +8,8 @@ cd /sites/proxy
   pm2 start index.js --name="proxy"
 cd ../..
 
+mkdir /tmp/cache
+
 echo "Preparing nginx..."
 
 cp /etc/configs/nginx/proxy /etc/nginx/sites-available/proxy
