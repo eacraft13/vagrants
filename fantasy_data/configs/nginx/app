@@ -8,14 +8,14 @@ server {
 
     # google site verification (fantasydata.co)
     location = /google7b33eeee9f60045f.html {
-        rewrite ^/(.*) $1;
-        return 200 "google-site-verification: $uri";
+        rewrite                 ^/(.*) $1;
+        return                  200 "google-site-verification: $uri";
     }
 
     # google site verification (fantasyback.com)
     location = /google7b33eeee9f60045f.html {
-        rewrite ^/(.*) $1;
-        return 200 "google-site-verification: $uri";
+        rewrite                 ^/(.*) $1;
+        return                  200 "google-site-verification: $uri";
     }
 
     return                  301 $scheme://www.$domain$request_uri;
@@ -32,32 +32,41 @@ server {
     ssl_certificate_key     /etc/nginx/ssl/nginx.key;
 
     location / {
-        proxy_pass http://127.0.0.1:8080;
+        proxy_pass              http://127.0.0.1:8080;
     }
 
-    proxy_intercept_errors on;
+    location /press {
+        proxy_pass              http://45.79.105.174;
+        proxy_http_version      1.1;
+        proxy_set_header        Upgrade $http_upgrade;
+        proxy_set_header        Connection 'upgrade';
+        proxy_set_header        Host $host;
+        proxy_cache_bypass      $http_upgrade;
+    }
+
+    proxy_intercept_errors  on;
 
     error_page 404 /404.html;
     location = /404.html {
-        root /usr/share/nginx/html;
+        root                    /usr/share/nginx/html;
         internal;
     }
 
     error_page 500 502 503 504 /503.html;
     location = /503.html {
-        root /usr/share/nginx/html;
+        root                    /usr/share/nginx/html;
         internal;
     }
 
     # google site verification
     location = /google7b33eeee9f60045f.html {
-        rewrite ^/(.*) $1;
-        return 200 "google-site-verification: $uri";
+        rewrite                 ^/(.*) $1;
+        return                  200 "google-site-verification: $uri";
     }
-    
+
     # google site verification (fantasyback.com)
     location = /google7b33eeee9f60045f.html {
-        rewrite ^/(.*) $1;
-        return 200 "google-site-verification: $uri";
+        rewrite                 ^/(.*) $1;
+        return                  200 "google-site-verification: $uri";
     }
 }

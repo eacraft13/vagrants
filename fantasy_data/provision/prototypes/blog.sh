@@ -2,8 +2,6 @@
 
 echo "Preparing blog..."
 
-sudo apt-get update
-sudo apt-get upgrade -y
 sudo aptitude install -y zip vim wget
 
 curl -sL https://deb.nodesource.com/setup | sudo bash -
